@@ -1,5 +1,6 @@
 import { Frog } from './frog';
 import { Pad } from './pad';
+import { handlePadJump } from './sequence';
 
 const canvas = document.createElement('canvas');
 canvas.width = 640;
@@ -8,7 +9,10 @@ document.getElementById('game-container')?.appendChild(canvas);
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 const frog = new Frog(canvas.width / 2, canvas.height - 50);
-const pads: Pad[] = [];
+export const pads: Pad[] = [];
+const notes = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'];
+
+
 const noteOptions = [
   "drum",
   "drum2",
@@ -17,15 +21,10 @@ const noteOptions = [
   "drum5",
   "drum6",
   "drum",
-  "drum8",
-  "drum9",
-  "drum10",
   "drum11",
   "drum13",
   "pad1",
   "pad2",
-  "pad3",
-  "pad4",
   "pad5",
   "pad7",
   "pad9",
@@ -68,5 +67,10 @@ function draw() {
 window.addEventListener('keydown', (e) => {
   frog.move(e.key, pads);
 });
+
+// canvas.addEventListener('click', (e) => {
+//   const clickedNote = getNoteAtPosition(e.x, e.y);
+//   if (clickedNote) handlePadJump(clickedNote);
+// });
 
 draw();

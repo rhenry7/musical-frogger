@@ -16,6 +16,7 @@ export class Frog {
     if (key === 'ArrowRight') this.x += step;
     if (key === 'ArrowUp') this.y -= step;
     if (key === 'ArrowDown') this.y += step;
+    if (key === 'Spacebar') this.x = step;
   for (const pad of pads) {
     if (pad.isHit(this.x, this.y)) {
       console.log("pad is hit")
