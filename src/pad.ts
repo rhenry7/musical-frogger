@@ -14,14 +14,14 @@ export class Pad {
     this.note = note;
 
     // Choose one of 4 colors based on the note
-    const drumColors = ['#064e3b', '#007857'];
-    const melodicColors = [ '#a7f3d6', '#2dd4bf'];
-    const colorSet = note.includes('drum') ? drumColors : melodicColors;
+    const drumColors = ['#007157'];
+    const melodicColors = [ '#a7f3d6', '#2dd4bf', ];
+    const colorSet = melodicColors;
     this.fillColor = colorSet[Math.floor(Math.random() * colorSet.length)];
 
     // Rotation state
     this.rotation = Math.random() * Math.PI * 2;
-    this.angularVelocity = (Math.random() - 0.5) * 0.007; // -0.005 to 0.005 radians/frame
+    this.angularVelocity = (Math.random() - 0.5) * 0.009; // -0.005 to 0.005 radians/frame
   }
 
   update() {
