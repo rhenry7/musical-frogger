@@ -60,7 +60,7 @@ export class Pad {
   }
 
   getHitColor(): string {
-    return '#FFA658';
+    return '#5F9DC6';
   }
 
   display(ctx: CanvasRenderingContext2D) {
@@ -89,6 +89,7 @@ export class Pad {
     const keyHint = noteToKeyMap[this.note];
     if (keyHint) {
       ctx.font = '18px sans-serif';
+      ctx.fillStyle = "green";
       ctx.fillText(`${keyHint.toLocaleUpperCase()}`, this.x, this.y );
     }
   }
