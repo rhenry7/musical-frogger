@@ -11,6 +11,7 @@ export function generateSequence(length = 3) {
     const index = Math.floor(Math.random() * pads.length);
     gameSequence.push(pads[index].note);
   }
+    console.log("gameSequence", gameSequence);
 }
    function delay(ms: number): Promise<void> {
        return new Promise(resolve => setTimeout(resolve, ms));
@@ -25,20 +26,26 @@ export async function playSequence() {
       }
    await delay(600);
   }
+        console.log("playSequence", playSequence);
+
 }
 
 let playerSequence = [];
 
-export function handlePadJump(note: string) {
+export async function handlePadJump(note: string) {
   playerSequence.push(note);
   playNote(note);
 
   // Validate against gameSequence
   const idx = playerSequence.length - 1;
   if (note !== gameSequence[idx]) {
+       await delay(600);
     window.alert("You failed!"); // wrong note
+      gameSequence = [];
   } else if (playerSequence.length === gameSequence.length) {
-   window.alert("You won!"); // next round
+       await delay(600);
+    window.alert("You won!"); // next round
+      gameSequence = [];
   }
 }
 
