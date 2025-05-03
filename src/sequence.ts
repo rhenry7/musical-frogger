@@ -4,43 +4,51 @@ import { pads } from "./main";
 let gameSequence: string[] = [];
 let playerSequence: string[] = [];
 
+type ScalePattern = {
+  name: string;
+  notes: string[];
+};
 
 export function generateSequence() {
   gameSequence = []; // Reset the sequence
-  const cMajorScale = ["C3", "D3", "E3", "F3", "G3"]; //  C Major (C3 root, 5-note fragment)
-  const gMajorScale = ["G3", "A3", "B3", "C4", "D4"]; // G Major (G3 root)
-  const dMajorScale = ["D3", "E3", "F#4", "G4", "A4"]; // D Major (D3 root)
-  const dMinorPentatonic = ["D3", "F3", "G3", "A3", "C4"]; // D Minor Pentatonic (D3 root)
-  const fMajorScale = ["F3", "G3", "A3", "Bb3", "C4"]; // F Major (F3 root)
-  const fLydianFragment = ["F3", "G3", "A3", "B3", "C4"]; // F Lydian (F3 root)
-const ePhrygianFragment = ["E3", "F3", "G3", "A3", "B3"]; // E Phrygian (E3 root)
-  const aMinorPentatonic = ["A3", "C4", "D4", "E4", "G4"]; //  A Minor Pentatonic (A3 root, 5-note scale)
-  const eBMinorFragment = ["Eb3", "Gb3", "Ab3", "Bb3"]; //  A Minor Pentatonic (A3 root, 5-note scale)
-  // 1. Ascending / Descending Runs
-const ascendingRun = ["C3", "D3", "E3", "F3", "G3"];
-const descendingRun = ["G3", "F3", "E3", "D3", "C3"];
 
-// 2. Arpeggios / Broken Chords
-const cMajorArpeggio = ["C3", "E3", "G3", "E3", "C3"];
-const dMinorPentatonicArpeggio = ["D3", "F3", "A3", "F3", "D3"];
+const scaleOptions: ScalePattern[] = [
+  { name: "C Major Scale", notes: ["C3", "D3", "E3", "F3", "G3"] },
+  { name: "G Major Scale", notes: ["G3", "A3", "B3", "C4", "D4"] },
+  { name: "D Major Scale", notes: ["D3", "E3", "F#4", "G4", "A4"] },
+  { name: "D Minor Pentatonic", notes: ["D3", "F3", "G3", "A3", "C4"] },
+  { name: "F Major Scale", notes: ["F3", "G3", "A3", "Bb3", "C4"] },
+  { name: "F Lydian Fragment", notes: ["F3", "G3", "A3", "B3", "C4"] },
+  { name: "E Phrygian Fragment", notes: ["E3", "F3", "G3", "A3", "B3"] },
+  { name: "A Minor Pentatonic", notes: ["A3", "C4", "D4", "E4", "G4"] },
+  { name: "Eb Minor Fragment", notes: ["Eb3", "Gb3", "Ab3", "Bb3"] },
 
-// 3. Repeated Motifs
-const twoNoteMotif = ["C3", "E3", "C3", "E3", "D3", "F3", "D3", "F3"];
-const threeNoteMotif = ["C3", "D3", "E3", "C3", "D3", "E3"];
-
-// 4. Skip-Step Patterns
-const stepSkipPattern = ["C3", "E3", "D3", "F3", "E3", "G3"];
-
-// 5. Rhythmic Phrases with Holds
-const holdRepeatPattern = ["C3", "C3", "E3", "D3", "D3", "G3"];
-
-// BONUS: Call & Response
-const callAndResponse = ["C3", "D3", "E3", "D3", "E3", "F3", "G3", "F3"];
-
-  const scaleOptions = [cMajorScale, gMajorScale, aMinorPentatonic, eBMinorFragment, dMajorScale, dMinorPentatonic, fMajorScale, fLydianFragment, ePhrygianFragment, aMinorPentatonic, ascendingRun, descendingRun, cMajorArpeggio, dMinorPentatonicArpeggio, twoNoteMotif, threeNoteMotif, stepSkipPattern, holdRepeatPattern, callAndResponse];
+  // Patterns
+  { name: "Ascending Run", notes: ["C3", "D3", "E3", "F3", "G3"] },
+  { name: "Descending Run", notes: ["G3", "F3", "E3", "D3", "C3"] },
+  { name: "C Major Arpeggio", notes: ["C3", "E3", "G3", "E3", "C3"] },
+  { name: "D Minor Pentatonic Arpeggio", notes: ["D3", "F3", "A3", "F3", "D3"] },
+  { name: "Two-Note Motif", notes: ["C3", "E3", "C3", "E3", "D3", "F3", "D3", "F3"] },
+  { name: "Three-Note Motif", notes: ["C3", "D3", "E3", "C3", "D3", "E3"] },
+  { name: "Step-Skip Pattern", notes: ["C3", "E3", "D3", "F3", "E3", "G3"] },
+  { name: "Hold-Repeat Pattern", notes: ["C3", "C3", "E3", "D3", "D3", "G3"] },
+  { name: "Call and Response", notes: ["C3", "D3", "E3", "D3", "E3", "F3", "G3", "F3"] }
+];
   
+  const sequence = scaleOptions[Math.floor(Math.random() * scaleOptions.length)];
+  gameSequence = sequence.notes;
 
-  gameSequence = scaleOptions[Math.floor(Math.random() * scaleOptions.length)]
+  const display = document.getElementById('note-display');
+  if (display) {
+    if (gameSequence.length > 0) { 
+      display.textContent = `Now learning: ${sequence.name}`;
+    } else {
+      display.textContent = "No scale in progress";
+    }
+
+}
+
+
   console.log("gameSequence", gameSequence);
 }
 

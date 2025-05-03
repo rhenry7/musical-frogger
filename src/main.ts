@@ -61,6 +61,10 @@ document.getElementById('pauseBtn')?.addEventListener('click', () => {
   clearSequence();
 });
 
+document.getElementById('replayBtn')?.addEventListener('click', () => {
+  playSequence();
+});
+
 
 
 
