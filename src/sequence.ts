@@ -1,5 +1,7 @@
 import { playNote } from "./audio";
+import { Frog } from "./frog";
 import { pads } from "./main";
+import { Pad } from "./pad";
 
 let gameSequence: string[] = [];
 let playerSequence: string[] = [];
@@ -45,7 +47,6 @@ const scaleOptions: ScalePattern[] = [
     } else {
       display.textContent = "No scale in progress";
     }
-
 }
 
 
@@ -69,17 +70,40 @@ export async function playSequence() {
       }
   })
   playNote(note);  // Make sure this function works correctly
-         await delay(600);
+  await delay(600);
 
 }
   console.log("playSequence", playSequence);
 }
 
+// Find pad by note
+function getPadByNote(note: string, pads: Pad[]): Pad | undefined {
+  return pads.find(pad => pad.note === note);
+}
 
-export async function handlePadJump(note: string) {
+// Trigger note and move frog
+function handleNoteTrigger(note: string, pads: Pad[], frog: Frog) {
+  const pad = getPadByNote(note, pads);
+  if (!pad) return;
+
+  frog.x = pad.x;
+  frog.y = pad.y;
+}
+
+export async function handlePadJump(note: string, pads: Pad[], frog: Frog) {
   playerSequence.push(note);
   playNote(note);
   console.log("playerSequence", playerSequence);
+  const pad = pads.find(pad => pad.note === note)
+  for (const pad of pads) {
+    if (pad.note === note) {
+      pad.activateHitEffect();
+    }
+  }
+if (!pad) return;
+
+frog.x = pad.x;
+frog.y = pad.y;
   if (gameSequence.length === 0) { return }
   // Validate against gameSequence
   const idx = playerSequence.length - 1;
@@ -96,6 +120,8 @@ export async function handlePadJump(note: string) {
     playerSequence = [];
         return console.log("gameSequence", gameSequence);
   }
+
+
 }
 
 export function nextLevel() {

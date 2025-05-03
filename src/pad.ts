@@ -1,3 +1,4 @@
+import { noteToKeyMap } from "./main";
 
 
 export class Pad {
@@ -79,11 +80,16 @@ export class Pad {
     ctx.fill();
 
       // Draw note label text underneath the pad
-  ctx.fillStyle = '#000'; // text color
-  ctx.font = '12px sans-serif';
+  ctx.fillStyle = 'green'; // text color
+  ctx.font = 'bold 11px sans-serif';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.fillText(this.note, this.x, this.y + radius + 4); // slight padding under the circle
-
+  ctx.fillText(this.note, this.x, this.y + radius + 12); // slight padding under the circle
+        // Draw key hint
+    const keyHint = noteToKeyMap[this.note];
+    if (keyHint) {
+      ctx.font = '18px sans-serif';
+      ctx.fillText(`${keyHint.toLocaleUpperCase()}`, this.x, this.y );
+    }
   }
 }

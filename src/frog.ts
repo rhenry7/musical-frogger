@@ -24,6 +24,11 @@ export class Frog {
     }
   }
   }
+
+  reset(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
   
   click(x: number, y: number, pads: Pad[]) {
     for (const pad of pads) {
