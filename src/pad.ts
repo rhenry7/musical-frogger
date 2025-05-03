@@ -14,9 +14,9 @@ export class Pad {
     this.note = note;
 
     // Choose one of 4 colors based on the note
-    const drumColors = ['#007157'];
-    const melodicColors = [ '#a7f3d6', '#2dd4bf', ];
-    const colorSet = melodicColors;
+    const drumColors = ['#2dd4bf'];
+    const melodicColors = [ '#a7f3d6'];
+    const colorSet = [drumColors, melodicColors].flat();
     this.fillColor = colorSet[Math.floor(Math.random() * colorSet.length)];
 
     // Rotation state

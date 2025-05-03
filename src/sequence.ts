@@ -5,29 +5,29 @@ let gameSequence: string[] = [];
 let currentLevel = 1;
 let currentStep = 0;
 
-export function generateSequence(length = 3) {
+export function generateSequence(length = 5) {
+  const cMajorScale = ["C3", "D3", "E3", "F3", "G3"]; //  C Major (C3 root, 5-note fragment)
+  const aMinorPentatonic = ["A3", "C4", "D4", "E4", "G4"]; //  A Minor Pentatonic (A3 root, 5-note scale)
+  const eBMinorFragment = ["Eb3", "Gb3", "Ab3", "Bb3"]; //  A Minor Pentatonic (A3 root, 5-note scale)
+  const scaleOptions = [cMajorScale, aMinorPentatonic, eBMinorFragment];
+  gameSequence = scaleOptions[Math.floor(Math.random() * scaleOptions.length)]
+  console.log("gameSequence", gameSequence);
+}
+
+export function clearSequence() {
   gameSequence = [];
-  for (let i = 0; i < length; i++) {
-    const index = Math.floor(Math.random() * pads.length);
-    gameSequence.push(pads[index].note);
-  }
-    console.log("gameSequence", gameSequence);
 }
    function delay(ms: number): Promise<void> {
        return new Promise(resolve => setTimeout(resolve, ms));
    }
 
 export async function playSequence() {
-  for (let i = 0; i < gameSequence.length; i++) {
-    const pad = pads.find(p => p.note === gameSequence[i]);
-     //await flashPad(pad);       // e.g., change fillStyle, redraw
-      if (pad) {  
-          playNote(pad.note);        // play sound
-      }
-   await delay(600);
-  }
-        console.log("playSequence", playSequence);
+for (let note of gameSequence) {
+  playNote(note);  // Make sure this function works correctly
+         await delay(600);
 
+}
+  console.log("playSequence", playSequence);
 }
 
 let playerSequence = [];
@@ -36,7 +36,6 @@ export async function handlePadJump(note: string) {
   playerSequence.push(note);
   playNote(note);
   if (gameSequence.length === 0) { return }
-
   // Validate against gameSequence
   const idx = playerSequence.length - 1;
   if (note !== gameSequence[idx]) {

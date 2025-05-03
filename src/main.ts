@@ -1,6 +1,6 @@
 import { Frog } from './frog';
 import { Pad } from './pad';
-import { generateSequence, handlePadJump, playSequence } from './sequence';
+import { clearSequence, generateSequence, handlePadJump, playSequence } from './sequence';
 
 const canvas = document.createElement('canvas');
 canvas.width = 640;
@@ -18,47 +18,17 @@ const noteOptions = [
   'Db4', 'Eb4', 'Gb4', 'Ab4', 'Bb4'               // Accidentals in octave 4
 ];
 
-
-// const noteOptions = [
-//   "drum",
-//   "drum2",
-//   "drum3",
-//   "drum4",
-//   "drum5",
-//   "drum6",
-//   "drum",
-//   "drum11",
-//   "drum13",
-//   "pad1",
-//   "pad2",
-//   "pad5",
-//   "pad7",
-//   "pad9",
-//   "pad11",
-//   "synth1",
-//   "synth2",
-//   "synth3",
-//   "synth6",
-//   "synth12",
-//   "syth5"
-// ];
-
-function shuffleArray(noteOptions: string[]) {
-    for (var i = noteOptions.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = noteOptions[i];
-        noteOptions[i] = noteOptions[j];
-        noteOptions[j] = temp;
-    }
-}
-
+//const shuffledNotes = [...noteOptions].sort(() => Math.random() - 0.5);
+let i = 0;
 
 for (let y = 100; y < 400; y += 80) {
  for (let x = 80; x <= 560; x += 80) {
-    const note = noteOptions[Math.floor(Math.random() * noteOptions.length)];
-    pads.push(new Pad(x, y, note));
+    if (i >= noteOptions.length) break;
+    pads.push(new Pad(x, y, noteOptions[i]));
+    i++;
   }
 }
+
 
 function draw() {
   ctx.fillStyle = 'lightblue';
@@ -84,6 +54,11 @@ document.getElementById('playBtn')?.addEventListener('click', () => {
   initAudio();
   generateSequence(difficulty);     // Example: generate 5-note sequence
   playSequence();
+});
+
+document.getElementById('pauseBtn')?.addEventListener('click', () => {
+  initAudio();
+  clearSequence();
 });
 
 
