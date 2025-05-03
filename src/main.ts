@@ -100,6 +100,7 @@ canvas.addEventListener('click', (e) => {
 
   for (let pad of pads) {
     if (pad.isHit(x, y)) {
+      frog.click(x, y, pads);
       handlePadJump(pad.note); // <-- Call here!
       break;
     }

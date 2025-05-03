@@ -35,6 +35,7 @@ let playerSequence = [];
 export async function handlePadJump(note: string) {
   playerSequence.push(note);
   playNote(note);
+  if (gameSequence.length === 0) { return }
 
   // Validate against gameSequence
   const idx = playerSequence.length - 1;

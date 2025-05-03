@@ -24,6 +24,16 @@ export class Frog {
     }
   }
   }
+  
+  click(x: number, y: number, pads: Pad[]) {
+    for (const pad of pads) {
+      if (pad.isHit(x, y)) {
+        this.x = x;
+        this.y = y;
+        playNote(pad.note);
+      }
+    }
+  }
 
   display(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = 'green';
