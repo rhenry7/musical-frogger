@@ -7,6 +7,9 @@ export class Pad {
   fillColor: string;
   rotation: number;
   angularVelocity: number;
+  isHitActive: boolean = false;
+  hitTimer: number = 0;
+  originalColor: string;
 
   constructor(x: number, y: number, note: string) {
     this.x = x;
@@ -18,6 +21,7 @@ export class Pad {
     const melodicColors = [ '#a7f3d6'];
     const colorSet = [drumColors, melodicColors].flat();
     this.fillColor = colorSet[Math.floor(Math.random() * colorSet.length)];
+    this.originalColor = this.fillColor;
 
     // Rotation state
     this.rotation = Math.random() * Math.PI * 2;
@@ -26,12 +30,36 @@ export class Pad {
 
   update() {
     this.rotation += this.angularVelocity;
+     // Decrease hitTimer and reset color if time is up
+    if (this.isHitActive) {
+      this.hitTimer--;
+      if (this.hitTimer <= 0) {
+        this.isHitActive = false;
+        this.fillColor = this.originalColor;
+      }
+    }
   }
 
     isHit(fx: number, fy: number): boolean {
     const dx = this.x - fx;
-    const dy = this.y - fy;
-    return Math.sqrt(dx * dx + dy * dy) < 30;
+      const dy = this.y - fy;
+    const hit = Math.sqrt(dx * dx + dy * dy) < 30;
+
+    if (hit) {
+      this.activateHitEffect();
+    }
+
+    return hit;
+    }
+  
+  activateHitEffect() {
+    this.isHitActive = true;
+    this.hitTimer = 10; // frames to stay highlighted (adjust as needed)
+    this.fillColor = this.getHitColor(); // temporary visual change
+  }
+
+  getHitColor(): string {
+    return '#FFA658';
   }
 
   display(ctx: CanvasRenderingContext2D) {

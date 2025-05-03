@@ -9,6 +9,7 @@ document.getElementById('game-container')?.appendChild(canvas);
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 const frog = new Frog(canvas.width / 2, canvas.height - 50);
+
 export const pads: Pad[] = [];
 const noteOptions = [
   'C2', 'D2', 'E2', 'F2', 'G2', 'A2', 'B2',       // Natural notes, octave 2
@@ -18,9 +19,7 @@ const noteOptions = [
   'Db4', 'Eb4', 'Gb4', 'Ab4', 'Bb4'               // Accidentals in octave 4
 ];
 
-//const shuffledNotes = [...noteOptions].sort(() => Math.random() - 0.5);
 let i = 0;
-
 for (let y = 100; y < 400; y += 80) {
  for (let x = 80; x <= 560; x += 80) {
     if (i >= noteOptions.length) break;
@@ -52,7 +51,8 @@ function initAudio() {
 
 document.getElementById('playBtn')?.addEventListener('click', () => {
   initAudio();
-  generateSequence(difficulty);     // Example: generate 5-note sequence
+  clearSequence();
+  generateSequence();     // Example: generate 5-note sequence
   playSequence();
 });
 
@@ -68,7 +68,7 @@ window.addEventListener('keydown', (e) => {
   frog.move(e.key, pads);
 });
 
-canvas.addEventListener('click', (e) => {
+canvas.addEventListener('pointerdown', (e) => {
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
