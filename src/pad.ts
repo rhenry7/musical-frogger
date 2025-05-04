@@ -26,7 +26,7 @@ export class Pad {
 
     // Rotation state
     this.rotation = Math.random() * Math.PI * 2;
-    this.angularVelocity = (Math.random() - 0.5) * 0.009; // -0.005 to 0.005 radians/frame
+    this.angularVelocity = (Math.random() - 0.5) * 0.02; // -0.005 to 0.005 radians/frame
   }
 
   update() {
@@ -72,7 +72,7 @@ export class Pad {
     const radius = 25;
     const wedgeAngle = Math.PI / 6; // 30 degrees missing slice
     const startAngle = this.rotation + wedgeAngle / 2;
-    const endAngle = this.rotation + Math.PI * 2 - wedgeAngle / 2;
+    const endAngle = this.rotation + Math.PI * 2 - wedgeAngle / 8;
 
     ctx.moveTo(this.x, this.y);
     ctx.arc(this.x, this.y, radius, startAngle, endAngle);

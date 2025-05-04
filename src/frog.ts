@@ -43,7 +43,7 @@ export class Frog {
   display(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = 'green';
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 20, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, 18, 0, Math.PI * 2);
     ctx.fill();
   }
 }
