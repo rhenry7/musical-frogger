@@ -40,10 +40,12 @@ const scaleOptions: ScalePattern[] = [
   const sequence = scaleOptions[Math.floor(Math.random() * scaleOptions.length)];
   gameSequence = sequence.notes;
 
-  const display = document.getElementById('note-display');
-  if (display) {
+  const display = document.getElementById('scale-display');
+  const showNotes = document.getElementById('scale-display');
+
+  if (display && showNotes) {
     if (gameSequence.length > 0) { 
-      display.textContent = `Now learning: ${sequence.name}`;
+      display.textContent = `Now learning: ${sequence.name}. ${sequence.notes.join(", ")}`;
     } else {
       display.textContent = "No scale in progress";
     }

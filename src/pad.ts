@@ -12,21 +12,29 @@ export class Pad {
   hitTimer: number = 0;
   originalColor: string;
 
+  
+  
+
   constructor(x: number, y: number, note: string) {
     this.x = x;
     this.y = y;
     this.note = note;
+        const colors = ['#2dd4bf', '#a7f9dd', '#a7f3d6'];
+
 
     // Choose one of 4 colors based on the note
-    const drumColors = ['#2dd4bf'];
-    const melodicColors = [ '#a7f3d6'];
-    const colorSet = [drumColors, melodicColors].flat();
-    this.fillColor = colorSet[Math.floor(Math.random() * colorSet.length)];
+    this.fillColor = colors[Math.floor(Math.random() * colors.length)];
     this.originalColor = this.fillColor;
 
     // Rotation state
     this.rotation = Math.random() * Math.PI * 2;
     this.angularVelocity = (Math.random() - 0.5) * 0.02; // -0.005 to 0.005 radians/frame
+  }
+
+  randomizeColor() {
+        const colors = ['#2dd4bf', '#a7f9dd', '#a7f3d6'];
+
+    this.fillColor = colors[Math.floor(Math.random() * colors.length)];
   }
 
   update() {
@@ -60,7 +68,7 @@ export class Pad {
   }
 
   getHitColor(): string {
-    return '#5F9DC6';
+    return '#39FF7E';
   }
 
   display(ctx: CanvasRenderingContext2D) {
@@ -88,9 +96,9 @@ export class Pad {
         // Draw key hint
     const keyHint = noteToKeyMap[this.note];
     if (keyHint) {
-      ctx.font = '18px sans-serif';
+      ctx.font = '24px sans-serif';
       ctx.fillStyle = "green";
-      ctx.fillText(`${keyHint.toLocaleUpperCase()}`, this.x, this.y );
+      ctx.fillText(`${keyHint.toLocaleUpperCase()}`, this.x, this.y + radius - 28);
     }
   }
 }

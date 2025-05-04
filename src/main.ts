@@ -1,4 +1,3 @@
-import { playNote } from './audio';
 import { Frog } from './frog';
 import { Pad } from './pad';
 import { clearSequence, generateSequence, handlePadJump, playSequence } from './sequence';
@@ -10,6 +9,7 @@ document.getElementById('game-container')?.appendChild(canvas);
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 const frog = new Frog(canvas.width / 2, canvas.height - 50);
+const pad = new Pad(100, 100, 'C2');
 
 export const pads: Pad[] = [];
 const noteOptions = [
@@ -33,7 +33,6 @@ for (let y = 100; y < 400; y += 80) {
 function draw() {
   ctx.fillStyle = 'lightblue';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-
   pads.forEach(pad => pad.display(ctx));
   frog.display(ctx);
 
@@ -42,7 +41,6 @@ function draw() {
 
 let audioCtx: AudioContext | null = null;
 let difficulty = 3;
-
 
 function initAudio() {
   if (!audioCtx) {
@@ -55,6 +53,7 @@ document.getElementById('playBtn')?.addEventListener('click', () => {
   clearSequence();
   generateSequence();     // Example: generate 5-note sequence
   playSequence();
+  pads.forEach(pad => pad.randomizeColor());
   frog.reset(canvas.width / 2, canvas.height - 50);
 });
 
@@ -100,9 +99,6 @@ const keyToNoteMap: Record<string, string> = {
   '7': 'Eb4',
 };
 
-
-
-
 // Keyboard input
 window.addEventListener('keydown', (e) => {
   const key = e.key.toLowerCase();
@@ -111,6 +107,19 @@ if (keyToNoteMap[key]) {
     const note = keyToNoteMap[key];
     handlePadJump(note, pads, frog);
 } 
+});
+
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  for (let pad of pads) {
+    if (pad.isHit(x, y)) {
+      handlePadJump(pad.note, pads, frog); // <-- Call here!
+      break;
+    }
+  }
 });
 
 export const noteToKeyMap: Record<string, string> = {};

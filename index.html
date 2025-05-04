@@ -4,13 +4,37 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Add Tailwind CSS via CDN -->
+		<script src="https://cdn.tailwindcss.com"></script>
     <title>Musical Frogger</title>
   </head>
   <body>
-    <div id="game-container">
-      <button id="playBtn">Play</button>
-<button id="replayBtn">Replay</button>
-<div id="note-display">Now learning: —</div>
+
+    
+<div class="flex flex-col sm:flex-row gap-6 p-6 bg-gray-100 min-h-screen">
+  <!-- Card 2 -->
+  <div class="bg-white shadow-md rounded-2xl p-6 w-half md:w-1/2">
+    <p class="text-gray-700 mb-6 text-xl">Welcome To Musical Frogger. 
+</p>
+        <p class="text-gray-700 mb-6">
+
+Hit play to listen to the notes of the scales to practice your listening, and see if you can recreate what you’ve heard with the pad.
+<br>
+<br>
+If you can’t find the notes, that’s fine. The purpose of the game is to have fun, feel free to play around with the pads, and find your own path. Enjoy!    </p>
+        <p class="text-gray-600 font-semibold mb-6" id="scale-display">Scale Playing: -</p>
+        <p class="text-gray-600 font-semibold mb-6" id="note-display"></p>
+
+
+    <div class="flex gap-4 mb-4">
+      <button class="px-4 py-2 bg-green-600 text-white rounded-full hover:bg-emerald-700 transition" id="playBtn">Play</button>
+      <button class="px-4 py-2 bg-slate-200 text-black rounded-full hover:bg-slate-300 transition" id="replayBtn">Replay</button>
+    </div>
+  </div>
+     <div id="game-container">
+
+  </div>
+</div>
 
 
     </div>
