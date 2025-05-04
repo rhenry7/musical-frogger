@@ -51,7 +51,7 @@ function initAudio() {
 document.getElementById('playBtn')?.addEventListener('click', () => {
   initAudio();
   clearSequence();
-  generateSequence();     // Example: generate 5-note sequence
+  generateSequence();     
   playSequence();
   pads.forEach(pad => pad.randomizeColor());
   frog.reset(canvas.width / 2, canvas.height - 50);
