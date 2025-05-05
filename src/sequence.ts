@@ -1,42 +1,18 @@
 import { playNote } from "./audio";
 import { Frog } from "./frog";
+import { scaleOptions } from "./helpers/helpers";
 import { pads } from "./main";
 import { Pad } from "./pad";
 
 let gameSequence: string[] = [];
 let playerSequence: string[] = [];
 
-type ScalePattern = {
-  name: string;
-  notes: string[];
-};
+
 
 export function generateSequence() {
   gameSequence = []; // Reset the sequence
+  playerSequence = []; // Reset the player's sequence
 
-const scaleOptions: ScalePattern[] = [
-  { name: "C Major Scale", notes: ["C3", "D3", "E3", "F3", "G3"] },
-  { name: "G Major Scale", notes: ["G3", "A3", "B3", "C4", "D4"] },
-  { name: "D Major Scale", notes: ["D3", "E3", "F#4", "G4", "A4"] },
-  { name: "D Minor Pentatonic", notes: ["D3", "F3", "G3", "A3", "C4"] },
-  { name: "F Major Scale", notes: ["F3", "G3", "A3", "Bb3", "C4"] },
-  { name: "F Lydian Fragment", notes: ["F3", "G3", "A3", "B3", "C4"] },
-  { name: "E Phrygian Fragment", notes: ["E3", "F3", "G3", "A3", "B3"] },
-  { name: "A Minor Pentatonic", notes: ["A3", "C4", "D4", "E4", "G4"] },
-  { name: "Eb Minor Fragment", notes: ["Eb3", "Gb3", "Ab3", "Bb3"] },
-
-  // Patterns
-  { name: "Ascending Run", notes: ["C3", "D3", "E3", "F3", "G3"] },
-  { name: "Descending Run", notes: ["G3", "F3", "E3", "D3", "C3"] },
-  { name: "C Major Arpeggio", notes: ["C3", "E3", "G3", "E3", "C3"] },
-  { name: "D Minor Pentatonic Arpeggio", notes: ["D3", "F3", "A3", "F3", "D3"] },
-  { name: "Two-Note Motif", notes: ["C3", "E3", "C3", "E3", "D3", "F3", "D3", "F3"] },
-  { name: "Three-Note Motif", notes: ["C3", "D3", "E3", "C3", "D3", "E3"] },
-  { name: "Step-Skip Pattern", notes: ["C3", "E3", "D3", "F3", "E3", "G3"] },
-  { name: "Hold-Repeat Pattern", notes: ["C3", "C3", "E3", "D3", "D3", "G3"] },
-  { name: "Call and Response", notes: ["C3", "D3", "E3", "D3", "E3", "F3", "G3", "F3"] }
-];
-  
   const sequence = scaleOptions[Math.floor(Math.random() * scaleOptions.length)];
   gameSequence = sequence.notes;
 
@@ -65,6 +41,8 @@ export function clearSequence() {
 
 export async function playSequence() {
   playerSequence = [];
+  await delay(1800);
+
   for (let note of gameSequence) {
     pads.forEach(pad => {
       if (pad.note === note) {

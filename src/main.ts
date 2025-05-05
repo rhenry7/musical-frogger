@@ -1,4 +1,5 @@
 import { Frog } from './frog';
+import { keyToNoteMap } from './helpers/helpers';
 import { Pad } from './pad';
 import { clearSequence, generateSequence, handlePadJump, playSequence } from './sequence';
 
@@ -9,22 +10,14 @@ document.getElementById('game-container')?.appendChild(canvas);
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 const frog = new Frog(canvas.width / 2, canvas.height - 50);
-const pad = new Pad(100, 100, 'C2');
 
 export const pads: Pad[] = [];
-const noteOptions = [
-  'C2', 'D2', 'E2', 'F2', 'G2', 'A2', 'B2',       // Natural notes, octave 2
-  'C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3',       // Natural notes, octave 3
-  'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4',       // Natural notes, octave 4
-  'Db3', 'Eb3', 'Gb3', 'Ab3', 'Bb3',              // Accidentals in octave 3
-  'Db4', 'Eb4', 'Gb4', 'Ab4', 'Bb4'               // Accidentals in octave 4
-];
 
 let i = 0;
 for (let y = 100; y < 400; y += 80) {
  for (let x = 80; x <= 560; x += 80) {
-    if (i >= noteOptions.length) break;
-    pads.push(new Pad(x, y, noteOptions[i]));
+    if (i >= Object.values(keyToNoteMap).length) break;
+    pads.push(new Pad(x, y, Object.values(keyToNoteMap)[i]));
     i++;
   }
 }
@@ -66,38 +59,7 @@ document.getElementById('replayBtn')?.addEventListener('click', () => {
   playSequence();
 });
 
-const keyToNoteMap: Record<string, string> = {
-  // White keys
-  'q': 'C2',
-  'w': 'D2',
-  'e': 'E2',
-  'r': 'F2',
-  't': 'G2',
-  'y': 'A2',
-  'u': 'B2',
-  'i': 'C3',
-  'o': 'D3',
-  'p': 'E3',
-  'a': 'F3',  
-  's': 'G3',
-  'd': 'A3',
-  'f': 'B3',
-  'g': 'C4',
-  'h': 'D4',
-  'j': 'E4',
-  'k': 'F4',
-  'l': 'G4',
-  'z': 'A4',
-  'x': 'B4',
-  // Black keys
-  '1': 'Db3',
-  '2': 'Eb3',
-  '3': 'Gb3',
-  '4': 'Ab3',
-  '5': 'Bb3',
-  '6': 'Db4',
-  '7': 'Eb4',
-};
+
 
 // Keyboard input
 window.addEventListener('keydown', (e) => {

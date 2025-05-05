@@ -19,9 +19,7 @@ export class Pad {
     this.x = x;
     this.y = y;
     this.note = note;
-        const colors = ['#2dd4bf', '#a7f9dd', '#a7f3d6'];
-
-
+    const colors = ['#a7f9dd', '#a7f3b6', '#a7f3d6', ];
     // Choose one of 4 colors based on the note
     this.fillColor = colors[Math.floor(Math.random() * colors.length)];
     this.originalColor = this.fillColor;
@@ -32,8 +30,7 @@ export class Pad {
   }
 
   randomizeColor() {
-        const colors = ['#2dd4bf', '#a7f9dd', '#a7f3d6'];
-
+    const colors = ['#a7f9dd', '#a7f3b6', '#a7f3d6'];
     this.fillColor = colors[Math.floor(Math.random() * colors.length)];
   }
 
@@ -63,12 +60,13 @@ export class Pad {
   
   activateHitEffect() {
     this.isHitActive = true;
-    this.hitTimer = 10; // frames to stay highlighted (adjust as needed)
+    this.hitTimer = 120; // frames to stay highlighted (adjust as needed)
     this.fillColor = this.getHitColor(); // temporary visual change
   }
 
   getHitColor(): string {
-    return '#39FF7E';
+    return '#2dd4bf';
+    
   }
 
   display(ctx: CanvasRenderingContext2D) {
