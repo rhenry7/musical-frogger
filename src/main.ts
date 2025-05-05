@@ -5,7 +5,7 @@ import { clearSequence, generateSequence, handlePadJump, playSequence } from './
 
 const canvas = document.createElement('canvas');
 canvas.width = 640;
-canvas.height = 480;
+canvas.height = 500;
 document.getElementById('game-container')?.appendChild(canvas);
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 

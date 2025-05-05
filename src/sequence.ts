@@ -17,15 +17,19 @@ export function generateSequence() {
   gameSequence = sequence.notes;
 
   const display = document.getElementById('scale-display');
-  const showNotes = document.getElementById('scale-display');
+  const showNotes = document.getElementById('note-display');
 
-  if (display && showNotes) {
+  if (display) {
     if (gameSequence.length > 0) { 
-      display.textContent = `Now learning: ${sequence.name}. ${sequence.notes.join(", ")}`;
+      display.textContent = `Now learning: ${sequence.name}`;
     } else {
       display.textContent = "No scale in progress";
     }
-}
+  }
+  
+  if (showNotes) {
+    showNotes.textContent = `Notes: ${gameSequence.join(", ")}`;
+  }
 
 
   console.log("gameSequence", gameSequence);
